@@ -1,111 +1,129 @@
-# LLM Enabled Robot: Documentation
+# **LLM-Enabled Robot: Documentation**
 
-*Made: 09-19-2024*\
-*Updated:09-20-2024*
+*Created: 09-19-2024*  
+*Last Updated: 09-20-2024*
 
-## Software List:
-Nvidia Jetson Orin: **Jetpack 5.1.2** with all appropiate Libraries (Cuda, etc)\
-Zed Depth Camera Sensor: **ZED sdk 4.1** For Jetson Nano\
-Elephat Robotics Cobot 280-M5-Stack: Download  Serial Driver, Firmware and PythonAPI. 
+---
 
-### Jetson Nano Orin Setup:
-When getting a fresh Jetson Orin. 
+## **Table of Contents**
+1. [Software List](#software-list)
+2. [Jetson Nano Orin Setup](#jetson-nano-orin-setup)
+   - [Choose Your Storage Media](#choose-your-storage-media)
+   - [Manual Setup](#manual-setup)
+     - [Step-by-Step Manual Setup](#step-by-step-manual-setup)
+       - [Step 1: Download the OS Image](#step-1-download-the-os-image)
+       - [Step 2: Using balenaEtcher](#step-2-using-balenaetcher)
+       - [Step 3: Insert SD Card into Jetson Board](#step-3-insert-sd-card-into-jetson-board)
+       - [Step 4: Firmware Downgrade](#step-4-firmware-downgrade)
+   - [Automatic Setup (Linux Ubuntu)](#automatic-setup-linux-ubuntu)
+3. [Study Resources](#study-resources)
+4. [ZED Camera Setup](#zed-camera-setup)
+5. [Cobot 280 Setup](#cobot-280-setup)
+   - [Step 1: Hardware Setup](#step-1-hardware-setup)
+6. [Isaac-ROS2](#isaac-ros2)
+---
 
-Choose your Storage Media:
-Micro-SD cards\
-SSD N.vme (Preferred) 
+## **Software List**
 
-Download List:
+- **Nvidia Jetson Orin**: *Jetpack 5.1.2* with all relevant libraries (e.g., CUDA)
+- **ZED Depth Camera Sensor**: *ZED SDK 4.1* for Jetson Nano
+- **Elephant Robotics Cobot 280-M5-Stack**: Download the Serial Driver, Firmware, and Python API
 
-Make sure to download the correct version of Jetson Orin Jetpack (OS for Jetson line) on your computer **Jetpack 5.1.2**/
+---
 
-The reason for this is so it is compatible with ZED SDK, Robotic SDK, and ROS2 software. 
+## **Jetson Nano Orin Setup**
 
-### Manual Setup: 
-Use this if only Windows and MAC is all you have avalaible:
-
-Go to this website for basic Setup Instructions:[Jetson Orin Setup](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
-
-To also Image the OS to your file Storage download [balenaEtcher](https://etcher.balena.io/)
-
-If more information is needed for firmware/install go to detailed [guide](https://www.jetson-ai-lab.com/initial_setup_jon.html)
-
-### Automatic Setup: (NEED LINUX UBUNTU)
-To Install OS, Software and Firmware easier use [NVIDIA SDK Manager](https://developer.nvidia.com/sdk-manager) (However can only be used with Ubuntu)
-
-You could use a Virtual Machine that runs Ubuntu however this has restrictions when imaging, and most likely not work (I have tried) 
-
-### Step 1 (Manual)
-
-First Download the Operating System Image [here](https://developer.nvidia.com/embedded/jetpack-sdk-512)
-
-<img width="1616" alt="Step_1_Download" src="https://github.com/user-attachments/assets/2b832d72-d5f8-4531-9f28-2db818b2e397">
-
-### Step 2(Manual)
-Then using [balenaEtcher](https://etcher.balena.io/)
-
-Pick Flash from File
-
-<img width="212" alt="Screenshot 2024-09-20 at 6 05 33 PM" src="https://github.com/user-attachments/assets/d0bf6e5f-0fc4-4c29-b6e4-f36aaa528cdd">
-
-Select target which is your SD-Card that is inserted in your computer.
-
-<img width="167" alt="Screenshot 2024-09-20 at 6 09 08 PM" src="https://github.com/user-attachments/assets/c7dc145f-c4f6-454e-a800-e1065e557199">
-
-
-Then click Flash
-
-<img width="161" alt="Screenshot 2024-09-20 at 6 09 36 PM" src="https://github.com/user-attachments/assets/8d495404-debd-43da-bd82-a29ef1fe66e9">
+### **Choose Your Storage Media**
+- **Micro-SD card**
+- **SSD NVMe** (*Recommended for optimal performance*)
+> **Note:** Make sure you download the correct version of the Jetson Orin Jetpack OS on your computer: **Jetpack 5.1.2**.
+### **Download the Necessary Files**
 
 
 
-### Step 3 (Manual) 
-Insert SD-Card to Jetson Board 
+> This version is essential to ensure compatibility with ZED SDK, Robotics SDK, and ROS2 software.
 
-<img width="469" alt="Screenshot 2024-09-20 at 6 12 38 PM" src="https://github.com/user-attachments/assets/7aa1ceec-0ffb-4bf8-8377-6063f0d9b1dc">
+## **Manual Setup**
+If you're using Windows or Mac, follow these steps:
+Software Needed:
+- Visit the official setup page: [Jetson Orin Setup](https://developer.nvidia.com/embedded/learn/get-started-jetson-orin-nano-devkit)
 
-Start the board, It should allow you to make your account after a long bootup process. (leave on for 10 minutes)
+To flash the OS image, use [balenaEtcher](https://etcher.balena.io/).
 
-IMPORTANT if this step does not work after some time continue to the next steps
+For a more detailed firmware/install guide, refer to this [Jetson Setup Guide](https://www.jetson-ai-lab.com/initial_setup_jon.html).
+**Step-by-Step Manual Setup**
 
-### Step 4 (Manual) Firmware:
-If you SD-card does not start up it might be an issue with Firmware due to 5.1.2 being an older version it does not work with newer Firmware.
+**Step 1: Download the OS Image**
+Download the Jetpack 5.1.2 image from the official site [here](https://developer.nvidia.com/embedded/jetpack-sdk-512).
 
-You must downgrade this Firmware to a lower version, Firmware version should be an Older UEFI version, and Nvidia l4t-core 35.4.1.
+![Step 1 Download](https://github.com/user-attachments/assets/2b832d72-d5f8-4531-9f28-2db818b2e397)
 
-You can download all of this using this [link](https://developer.nvidia.com/embedded/jetson-linux-r3541) once downloaded you can upload this firmware using the onbaord UEFI. NOTE you need a USB drive for this or a direct connection to your laptop.
+**Step 2: Using balenaEtcher**
+1. Launch [balenaEtcher](https://etcher.balena.io/).
+2. Click on **Flash from File**.
 
-Once your Jetson Orin Nano boots up it will show you the UEFI screen. Click Tab
+   ![Flash from File](https://github.com/user-attachments/assets/d0bf6e5f-0fc4-4c29-b6e4-f36aaa528cdd)
 
-***Note: I Never Installed it in this way, I just saw online resources showing this as a way to downgrade***
-***IF this firmware Install is proves too difficult please use the SDK Manager which I will show in the Automatic Section.***
+3. Select your target SD card.
+
+   ![Select Target](https://github.com/user-attachments/assets/c7dc145f-c4f6-454e-a800-e1065e557199)
+
+4. Click **Flash**.
+
+   ![Flash](https://github.com/user-attachments/assets/8d495404-debd-43da-bd82-a29ef1fe66e9)
+
+**Step 3: Insert SD Card into Jetson Board**
+- Insert the SD card into the Jetson board's slot.
+
+![Insert SD Card](https://github.com/user-attachments/assets/7aa1ceec-0ffb-4bf8-8377-6063f0d9b1dc)
+
+Power up the board. The setup process may take approximately 10 minutes. Follow the prompts to create your account.
+
+> **Important:** If this step doesn’t work, continue to the next step.
+
+**Step 4: Firmware Downgrade**
+If the SD card doesn’t boot, there might be a firmware compatibility issue with Jetpack 5.1.2.
+
+1. Download the older firmware from this [link](https://developer.nvidia.com/embedded/jetson-linux-r3541). You need an older UEFI version and Nvidia l4t-core 35.4.1.
+2. Upload this firmware via the onboard UEFI using a USB drive or a direct connection to your laptop.
+
+> **Note:** This method is based on online resources and has not been personally tested. If it’s too complex, use the SDK Manager.
+
+---
+**Automatic Setup (Linux Ubuntu)**
+For a more streamlined installation process, use the [NVIDIA SDK Manager](https://developer.nvidia.com/sdk-manager).
+
+> **Note:** The SDK Manager requires Ubuntu. You might attempt to use a virtual machine, but this method is often limited and might not work.
+
+---
 
 
 
-Study Resources:\
-[AI on the Jetson Nano LESSONS: Paul Mcwhorter](https://www.youtube.com/watch?v=5INy0FvaWLw&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_)
+## **Study Resources**
+- [AI on the Jetson Nano Lessons by Paul McWhorter](https://www.youtube.com/watch?v=5INy0FvaWLw&list=PLGs0VKk2DiYxP-ElZ7-QXIERFFPkOuP4_)
+- [Ultimate Jetson Orin Nano Walkthrough by Jetson Hacks](https://www.youtube.com/watch?v=qCAoPcMiR4k)
 
-[Ultimate Jetson Orin Nano Walkthrough: Jetson Hacks](https://www.youtube.com/watch?v=qCAoPcMiR4k)
+---
 
+## **ZED Camera Setup**
+> **Details will be added soon**
 
+---
 
+## **Cobot 280 Setup**
 
+### **Step 1: Hardware Setup**
+1. Connect the power cable to the Cobot.
+2. Use a USB-C cable or USB-to-USB cable to link it to your computer.
 
+For downloads, visit the [Elephant Robotics Download Hub](https://www.elephantrobotics.com/en/downloads).
 
-Arm Setup:
+---
 
+## **Isaac-ROS2**
+> **Details will be added soon**
 
-
-[Download Hub](https://www.elephantrobotics.com/en/downloads)
-
-
-ZED Camera Setup:
-
-
-
-
-
-Isaac-ROS2:
+---
 
 
 
